@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="campo_obligatorio">Campo obligatorio</string>
+    <string name="loading">Cargando...</string>
+    <string name="error_formato_email">error_formato_email</string>
+    <string name="error_formato_cp">error_formato_cp</string>
+    <string name="error_formato_phone">error_formato_phone</string>
+    <string name="pass_error_lenght">pass_error_lenght</string>
+    <string name="pass_error">pass_error</string>
 </resources>

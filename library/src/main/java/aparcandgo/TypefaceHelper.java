@@ -1,10 +1,8 @@
-package aparcandgo.fontables;
+package aparcandgo;
 
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.SparseArray;
-
-import aparcandgo.Typefaces;
 
 public class TypefaceHelper {
 	

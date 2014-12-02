@@ -1,4 +1,4 @@
-package aparcandgo.fontables;
+package aparcandgo;
 
 import android.content.Context;
 import android.graphics.Canvas;
