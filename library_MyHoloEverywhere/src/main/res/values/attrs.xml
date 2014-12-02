@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FontableTextView">
+        <attr name="FontID" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="FontableEditText">
+        <attr name="Font_ID" format="reference" />
+    </declare-styleable>
+</resources>
