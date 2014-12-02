@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.holoeverywhere.R;
+import es.utils.R;
+
 
 public class FontableEditText extends EditText {
 

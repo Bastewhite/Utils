@@ -4,7 +4,18 @@
     <declare-styleable name="FontableTextView">
         <attr name="FontID" format="reference" />
     </declare-styleable>
+
     <declare-styleable name="FontableEditText">
         <attr name="Font_ID" format="reference" />
     </declare-styleable>
-</resources>
+
+    <declare-styleable name="SwipeRefreshListView">
+        <attr name="swipelv_color_1" format="reference"/>
+        <attr name="swipelv_color_2" format="reference"/>
+        <attr name="swipelv_color_3" format="reference"/>
+        <attr name="swipelv_color_4" format="reference"/>
+        <attr name="swipelv_listDivider" format="reference"/>
+        <attr name="swipelv_expandable" format="boolean"/>
+    </declare-styleable>
+
+</resources>

@@ -1,4 +1,4 @@
-package aparcandgo.expandable;
+package commons;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -58,7 +58,7 @@ public class ExpandableView extends LinearLayout {
         lp.height = mMinCollapsedHeight;
         mContent.setLayoutParams(lp);
 
-//        mHandle.setOnClickListener(new Toggler());
+        mHandle.setOnClickListener(new Toggler());
     }
 
     @Override
@@ -73,7 +73,10 @@ public class ExpandableView extends LinearLayout {
         }
 
         mContentHeight = mContent.getMeasuredHeight();
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        try {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        } catch (IndexOutOfBoundsException ignored) {
+        }
     }
 
     public void setOnExpandListener(OnExpandListener listener) {
@@ -116,11 +119,11 @@ public class ExpandableView extends LinearLayout {
         mExpanded = !mExpanded;
     }
 
-//    private class Toggler implements OnClickListener {
-//        public void onClick(View v) {
-//            toggle();
-//        }
-//    }
+    private class Toggler implements OnClickListener {
+        public void onClick(View v) {
+            toggle();
+        }
+    }
 
     private class ExpandAnimation extends Animation {
         private final int mStartHeight;

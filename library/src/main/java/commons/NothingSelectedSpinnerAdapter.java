@@ -1,7 +1,8 @@
-package aparcandgo;
+package commons;
 
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,8 @@ import android.widget.ListAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import org.holoeverywhere.R;
+import es.utils.R;
+
 
 /**
  * Decorator Adapter to allow a Spinner to show a 'Nothing Selected...' initially
@@ -21,7 +23,6 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
     protected static final int EXTRA = 1;
     protected SpinnerAdapter adapter;
     protected Context context;
-    protected int nothingSelectedLayout;
     protected int nothingSelectedDropdownLayout;
     protected LayoutInflater layoutInflater;
     private int nothingSelectedStringId;
@@ -29,18 +30,16 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
     /**
      * Use this constructor to have NO 'Select One...' item, instead use
      * the standard prompt or nothing at all.
-     * @param spinnerAdapter wrapped Adapter.
      * @param context
      * @param nothingSelectedStringId
      */
     public NothingSelectedSpinnerAdapter(Context context, int nothingSelectedStringId, int arrayId) {
-
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				context, arrayId,
-				R.layout.spinner_simple_item);
+                context, arrayId,
+                R.layout.spinner_simple_item);
 		adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-		
-        init(adapter, R.layout.spinner_row_nothing_selected, -1, context);
+
+        init(adapter, -1, context);
         this.nothingSelectedStringId = nothingSelectedStringId;
     }
 
@@ -50,22 +49,17 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
      * If you do this, you probably don't want a prompt on your spinner or it'll
      * have two 'Select' rows.
      * @param spinnerAdapter wrapped Adapter. Should probably return false for isEnabled(0)
-     * @param nothingSelectedLayout layout for nothing selected, perhaps you want
-     * text grayed out like a prompt...
-     * @param nothingSelectedDropdownLayout layout for your 'Select an Item...' in
      * the dropdown.
      * @param context
      */
     public NothingSelectedSpinnerAdapter(SpinnerAdapter spinnerAdapter, Context context, int nothingSelectedStringId) {
-    	init(spinnerAdapter, R.layout.spinner_row_nothing_selected, -1, context);
+        init(spinnerAdapter, -1, context);
         this.nothingSelectedStringId = nothingSelectedStringId;
     }
-    
-    private void init(SpinnerAdapter spinnerAdapter,
-            int nothingSelectedLayout, int nothingSelectedDropdownLayout, Context context) {
+
+    private void init(SpinnerAdapter spinnerAdapter, int nothingSelectedDropdownLayout, Context context) {
         this.adapter = spinnerAdapter;
         this.context = context;
-        this.nothingSelectedLayout = nothingSelectedLayout;
         this.nothingSelectedDropdownLayout = nothingSelectedDropdownLayout;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -78,7 +72,7 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
             return getNothingSelectedView(parent);
         }
         return adapter.getView(position - EXTRA, null, parent); // Could re-use
-                                                 // the convertView if possible.
+        // the convertView if possible.
     }
 
     /**
@@ -88,9 +82,10 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
      * @return
      */
     protected View getNothingSelectedView(ViewGroup parent) {
-    	View view = layoutInflater.inflate(nothingSelectedLayout, parent, false);
-    	TextView textView = (TextView) view.findViewById(android.R.id.text1);
-    	textView.setText(nothingSelectedStringId);
+        View view = layoutInflater.inflate(R.layout.spinner_item, parent, false);
+        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+        textView.setTextColor(Color.GRAY);
+        textView.setText(nothingSelectedStringId);
         return view;
     }
 
@@ -100,8 +95,8 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
         // Spinner does not support multiple view types
         if (position == 0) {
             return nothingSelectedDropdownLayout == -1 ?
-              new View(context) :
-              getNothingSelectedDropdownView(parent);
+                    new View(context) :
+                    getNothingSelectedDropdownView(parent);
         }
 
         // Could re-use the convertView if possible, use setTag...
@@ -136,8 +131,8 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
         // This method determines what is the convertView, this should
         // return 1 for pos 0 or return 0 otherwise.
         return position == 0 ?
-               getViewTypeCount() - EXTRA :
-               adapter.getItemViewType(position - EXTRA);
+                getViewTypeCount() - EXTRA :
+                adapter.getItemViewType(position - EXTRA);
     }
 
     @Override
@@ -177,8 +172,8 @@ public class NothingSelectedSpinnerAdapter implements SpinnerAdapter, ListAdapte
 
     @Override
     public boolean isEnabled(int position) {
-        return position == 0 ? false : true; // Don't allow the 'nothing selected'
-                                             // item to be picked.
+        return position != 0; // Don't allow the 'nothing selected'
+        // item to be picked.
     }
 
 }

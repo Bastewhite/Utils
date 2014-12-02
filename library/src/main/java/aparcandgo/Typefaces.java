@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import aparcandgo.debug.Debugger;
+import commons.Debugger;
 
 public class Typefaces {
 	private static final String TAG = "Typefaces";

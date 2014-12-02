@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.holoeverywhere.R;
+import es.utils.R;
+
 
 public class FontableTextView extends TextView {
 

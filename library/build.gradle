@@ -4,12 +4,10 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.1.0"
 
-//    ext {
-//        isLibrary = true
-//        pomPackaging = "aar"
-//        pomArtifactId = "zbar"
-//        pomName = "ZBar Scanner View"
-//        pomDescription = 'An android library project which contains the zbar barcode scanner view'
+//    defaultConfig {
+//        applicationId "org.holoeverywhere"
+//        minSdkVersion 10
+//        targetSdkVersion 19
 //    }
 
 //    defaultConfig {
