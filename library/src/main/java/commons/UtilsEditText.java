@@ -2,6 +2,7 @@ package commons;
 
 import android.content.Context;
 import android.util.Patterns;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -104,4 +105,8 @@ public class UtilsEditText {
         }
     }
 
+    public static void dismissKeyboard(EditText editText) {
+        InputMethodManager imm = (InputMethodManager)editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
 }

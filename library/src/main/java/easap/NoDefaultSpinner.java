@@ -98,6 +98,14 @@ public class NoDefaultSpinner<T> extends Spinner {
                 new SpinnerAdapterProxy(obj));
     }
 
+    public boolean isValid() {
+        if (getSelectedItemPosition() == -1) {
+            ((TextView)getChildAt(0)).setError(getContext().getString(R.string.campo_obligatorio));
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Intercepts getView() to display the prompt if position < 0
      */
