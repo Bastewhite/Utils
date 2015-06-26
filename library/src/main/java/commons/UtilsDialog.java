@@ -75,18 +75,22 @@ public class UtilsDialog {
     }
 
     public static void showAlertDialog(Context context, String string) {
-        showAlertDialog(context, string, null);
+        showAlertDialog(context, null, string, null);
     }
 
     public static void showAlertDialog(Context context, int stringId) {
-        showAlertDialog(context, context.getString(stringId), null);
+        showAlertDialog(context, null, context.getString(stringId), null);
+    }
+
+    public static void showAlertDialog(Context context, int titleRes, int messageRes) {
+        showAlertDialog(context, context.getString(titleRes), context.getString(messageRes), null);
     }
 
     public static void showAlertDialog(Context context, int stringId, DialogInterface.OnClickListener listener) {
-        showAlertDialog(context, context.getString(stringId), listener);
+        showAlertDialog(context, null, context.getString(stringId), listener);
     }
 
-    public static void showAlertDialog(Context context, String string, DialogInterface.OnClickListener listener) {
+    public static void showAlertDialog(Context context, String title, String string, DialogInterface.OnClickListener listener) {
         if (context == null)
             return;
         if (context instanceof FragmentActivity && ((FragmentActivity) context).isFinishing())
@@ -96,22 +100,40 @@ public class UtilsDialog {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(listener == null);
+        builder.setTitle(title);
         builder.setMessage(string);
         builder.setPositiveButton(android.R.string.ok, listener);
         alertDialog = builder.create();
         alertDialog.show();
     }
 
-    public static void showAlertDialogTwoButtons(Context context, int stringId, DialogInterface.OnClickListener listener) {
+    public static void showAlertDialogTwoButtons(Context context, int messageId, DialogInterface.OnClickListener positiveListener) {
+        showAlertDialogTwoButtons(context, context.getString(messageId), android.R.string.ok, positiveListener, null);
+    }
+
+    public static void showAlertDialogTwoButtons(Context context, int messageId, DialogInterface.OnClickListener listener, DialogInterface.OnClickListener negativeListener) {
+        showAlertDialogTwoButtons(context, context.getString(messageId), android.R.string.ok, listener, negativeListener);
+    }
+
+    public static void showAlertDialogTwoButtons(Context context, int messageId, int stringPositiveId, DialogInterface.OnClickListener listener) {
+        showAlertDialogTwoButtons(context, context.getString(messageId), stringPositiveId, listener, null);
+    }
+
+    public static void showAlertDialogTwoButtons(Context context, String message, int stringPositiveId, DialogInterface.OnClickListener positiveListener) {
+        showAlertDialogTwoButtons(context, message, stringPositiveId, positiveListener, null);
+    }
+
+    public static void showAlertDialogTwoButtons(Context context, String message, int stringPositiveId, DialogInterface.OnClickListener positiveListener,
+                                                 DialogInterface.OnClickListener negativeListener) {
         if (context instanceof FragmentActivity && ((FragmentActivity) context).isFinishing())
             return;
         if (context instanceof Activity && ((Activity) context).isFinishing())
             return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(context.getString(stringId));
-        builder.setPositiveButton(android.R.string.ok, listener);
-        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.setMessage(message);
+        builder.setPositiveButton(stringPositiveId, positiveListener);
+        builder.setNegativeButton(android.R.string.cancel, negativeListener);
         alertDialog = builder.create();
         alertDialog.show();
     }
